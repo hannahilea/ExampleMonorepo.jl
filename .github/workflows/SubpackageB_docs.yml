@@ -1,0 +1,40 @@
+name: Docs - SubpackageB.jl
+on:
+  workflow_dispatch:
+  push:
+    tags: ['*']
+    branches:
+      - main
+    paths:
+      - '.github/workflows/SubpackageB_docs.yml'
+      - 'path/to/SubpackageB.jl/docs/**'
+      - 'path/to/SubpackageB.jl/src/**'
+      - 'path/to/SubpackageB.jl/Project.toml'
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    paths:
+      - '.github/workflows/SubpackageB_docs.yml'
+      - 'path/to/SubpackageB.jl/docs/**'
+      - 'path/to/SubpackageB.jl/src/**'
+      - 'path/to/SubpackageB.jl/Project.toml'
+jobs:
+  Documentation:
+    # Run on push's or non-draft PRs
+    if: (github.event_name == 'push') || (github.event.pull_request.draft == false)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: julia-actions/setup-julia@latest
+        with:
+          version: 1.8
+      - name: Install dependencies
+        run: |
+          julia --project=docs/ -e 'using Pkg;
+              Pkg.develop(PackageSpec(path=pwd()));
+              Pkg.instantiate()'
+        working-directory: path/to/SubpackageB.jl
+      - run: julia --project=docs "docs/make.jl"
+        working-directory: path/to/SubpackageB.jl
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # For authentication with GitHub Actions token
+          PYTHON: ""

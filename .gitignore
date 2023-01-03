@@ -1,0 +1,4 @@
+docs/build/**
+SubpackageA.jl/docs/build/**
+path/to/SubpackageB.jl/docs/build/**
+*Manifest.toml
