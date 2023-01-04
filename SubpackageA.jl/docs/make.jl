@@ -10,4 +10,5 @@ makedocs(; modules=[SubpackageA],
 deploydocs(; repo="github.com/hannahilea/ExampleMonorepo.jl.git",
     push_preview=true,
     dirname="SubpackageA",
+    tag_prefix="SubpackageA-",
     devbranch="main")
