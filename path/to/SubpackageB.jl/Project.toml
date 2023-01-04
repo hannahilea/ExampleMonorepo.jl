@@ -1,4 +1,4 @@
 name = "SubpackageB"
 uuid = "3997e50c-a336-4ff7-948b-881e33df92ed"
 authors = ["hannahilea <hannahilea@users.noreply.github.com>"]
-version = "0.1.0"
+version = "0.1.2"
